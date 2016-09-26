@@ -5,7 +5,7 @@ package db.dash;
  * @author huangwaleking
  *
  */
-public class TagVO {
+public class DashTagVO {
 	private int tid;
 	private String tag;
 	public int getTid() {

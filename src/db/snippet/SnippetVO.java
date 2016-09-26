@@ -6,8 +6,8 @@ public class SnippetVO {
 	private String key;// sid
 	private String name;// title
 	private String sourceCode;// body
-	private Date dateAdded = new Date();
-	private Date dateModified = new Date();
+	private Date dateAdded = new Date(System.currentTimeMillis());
+	private Date dateModified = new Date(System.currentTimeMillis());
 	private String highlightKey = "YLQzq5E6u0udia6A9zCrHw";// Plain Text in
 															// Highlight table
 

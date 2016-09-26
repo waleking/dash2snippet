@@ -10,7 +10,6 @@ public class SnippetMappingFunction {
 	 */
 	public static String turnIntToString22(int id) {
 		String strId = Integer.toString(id);
-		System.out.println(strId.length());
 		int len = 22 - strId.length();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < len; i++) {

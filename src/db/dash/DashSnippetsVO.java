@@ -5,7 +5,7 @@ package db.dash;
  * @author huangwaleking
  *
  */
-public class SnippetsVO {
+public class DashSnippetsVO {
 	private int sid;
 	private String title;
 	private String body;

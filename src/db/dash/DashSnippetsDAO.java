@@ -8,14 +8,14 @@ import java.util.List;
 
 import tool.DashDBConn;
 
-public class SnippetsDAO {
+public class DashSnippetsDAO {
 	private DashDBConn dbc = new DashDBConn();
 
 	/*
 	 * search by userid and paperid
 	 */
-	public List<SnippetsVO> scan() {
-		List<SnippetsVO> ls = new ArrayList<SnippetsVO>();
+	public List<DashSnippetsVO> scan() {
+		List<DashSnippetsVO> ls = new ArrayList<DashSnippetsVO>();
 
 		ResultSet rs = null;
 		String sql = "select * from snippets";
@@ -25,7 +25,7 @@ public class SnippetsDAO {
 			rs = pstmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
-					SnippetsVO snippetsVO = new SnippetsVO();
+					DashSnippetsVO snippetsVO = new DashSnippetsVO();
 					snippetsVO.setSid(rs.getInt("sid"));
 					snippetsVO.setTitle(rs.getString("title"));
 					snippetsVO.setBody(rs.getString("body"));
@@ -37,12 +37,14 @@ public class SnippetsDAO {
 		}
 		return ls;
 	}
+	
+	
 
 	public static void testScan() {
-		SnippetsDAO snippetsDAO = new SnippetsDAO();
-		List<SnippetsVO> l = snippetsDAO.scan();
+		DashSnippetsDAO snippetsDAO = new DashSnippetsDAO();
+		List<DashSnippetsVO> l = snippetsDAO.scan();
 		System.out.println(l.size());
-		for (SnippetsVO snippetsVO : l) {
+		for (DashSnippetsVO snippetsVO : l) {
 			System.out.println(snippetsVO);
 		}
 	}

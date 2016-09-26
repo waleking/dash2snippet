@@ -28,8 +28,6 @@ public class SnippetLabelsDAO {
 		String sql = "INSERT INTO SnippetLabels(LabelKey,SnippetKey) "
 				+ "VALUES (?,?)";
 		PreparedStatement pstmt = null;
-		// 连接数据库
-		SnippetDBConn dbc = new SnippetDBConn();
 		// 下面是针对数据库的具体操作
 		try {
 			pstmt = dbc.getConnection().prepareStatement(sql);
@@ -41,9 +39,6 @@ public class SnippetLabelsDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			// System.exit(-1);
-		} finally {
-			// 关闭数据库连接
-			dbc.close();
 		}
 		return toReturn;
 	}

@@ -20,7 +20,7 @@ public class SnippetDAO {
 	 * @return
 	 */
 	public int insert(SnippetVO snippetVO) {
-		if(snippetVO.getKey().length()!=22){
+		if (snippetVO.getKey().length() != 22) {
 			System.err.println("key's length is not 22");
 			return -1;
 		}
@@ -37,9 +37,9 @@ public class SnippetDAO {
 			pstmt.setString(2, snippetVO.getName());
 			pstmt.setString(3, snippetVO.getSourceCode());
 			pstmt.setTimestamp(4, new Timestamp(snippetVO.getDateAdded()
-					.getTime()));
+					.getTime() / 1000));
 			pstmt.setTimestamp(5, new Timestamp(snippetVO.getDateModified()
-					.getTime()));
+					.getTime() / 1000));
 			pstmt.setString(6, snippetVO.getHighlightKey());
 			// 进行数据库更新操作
 			toReturn = pstmt.executeUpdate();
@@ -52,6 +52,38 @@ public class SnippetDAO {
 			dbc.close();
 		}
 		return toReturn;
+	}
+
+	public void insertBatchly(List<SnippetVO> l) {
+		PreparedStatement pstmt = null;
+		try {
+			dbc.getConnection().setAutoCommit(false);
+			for (int i = 0; i < l.size(); i++) {
+				SnippetVO snippetVO = l.get(i);
+				if (snippetVO.getKey().length() != 22) {
+					System.err.println("key's length is not 22");
+				}
+
+				String sql = "INSERT INTO Snippet(key,name,sourceCode,dateAdded,dateModified,highlightKey) "
+						+ "VALUES (?,?,?,?,?,?)";
+				// 下面是针对数据库的具体操作
+				pstmt = dbc.getConnection().prepareStatement(sql);
+				pstmt.setString(1, snippetVO.getKey());
+				pstmt.setString(2, snippetVO.getName());
+				pstmt.setString(3, snippetVO.getSourceCode());
+				pstmt.setTimestamp(4, new Timestamp(snippetVO.getDateAdded()
+						.getTime() / 1000));
+				pstmt.setTimestamp(5, new Timestamp(snippetVO.getDateModified()
+						.getTime() / 1000));
+				pstmt.setString(6, snippetVO.getHighlightKey());
+				pstmt.executeUpdate();
+			}
+			//批量更新
+			dbc.getConnection().commit();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int deleteAll() {
@@ -129,8 +161,8 @@ public class SnippetDAO {
 
 	public static void main(String[] args) {
 		// testScan();
+		testDelete();
 		testInsert();
-		// testDelete();
 		testScan();
 	}
 }

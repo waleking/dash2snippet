@@ -8,14 +8,14 @@ import java.util.List;
 
 import tool.DashDBConn;
 
-public class TagDAO {
+public class DashTagDAO {
 	private DashDBConn dbc = new DashDBConn();
 
 	/*
 	 * search by userid and paperid
 	 */
-	public List<TagVO> scan() {
-		List<TagVO> ls = new ArrayList<TagVO>();
+	public List<DashTagVO> scan() {
+		List<DashTagVO> ls = new ArrayList<DashTagVO>();
 
 		ResultSet rs = null;
 		String sql = "select * from tags";
@@ -25,7 +25,7 @@ public class TagDAO {
 			rs = pstmt.executeQuery();
 			if (rs != null) {
 				while (rs.next()) {
-					TagVO tagVO = new TagVO();
+					DashTagVO tagVO = new DashTagVO();
 					tagVO.setTag(rs.getString("tag"));
 					tagVO.setTid(rs.getInt("tid"));
 					ls.add(tagVO);
@@ -51,10 +51,10 @@ public class TagDAO {
 	}
 
 	public static void testScan() {
-		TagDAO tagDAO = new TagDAO();
-		List<TagVO> l = tagDAO.scan();
+		DashTagDAO tagDAO = new DashTagDAO();
+		List<DashTagVO> l = tagDAO.scan();
 		System.out.println(l.size());
-		for (TagVO tagVO : l) {
+		for (DashTagVO tagVO : l) {
 			System.out.println(tagVO);
 		}
 	}

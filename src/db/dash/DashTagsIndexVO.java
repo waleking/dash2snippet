@@ -6,7 +6,7 @@ package db.dash;
  * @author huangwaleking
  *
  */
-public class TagsIndexVO {
+public class DashTagsIndexVO {
 	public int tid;
 	public int sid;
 	@Override
