@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tool.SnippetDBConn;
+import tool.SnippetMappingFunction;
 
 public class LabelDAO {
 	private SnippetDBConn dbc = new SnippetDBConn();
@@ -18,6 +19,10 @@ public class LabelDAO {
 	 * @return
 	 */
 	public int insert(LabelVO labelVO) {
+		if (labelVO.getKey().length() != 22) {
+			System.err.println("key's length is not 22");
+			return -1;
+		}
 		int toReturn = 0;
 		String sql = "INSERT INTO label(name,key) " + "VALUES (?,?)";
 		PreparedStatement pstmt = null;
@@ -114,7 +119,7 @@ public class LabelDAO {
 	public static void testInsert() {
 		LabelDAO labelDAO = new LabelDAO();
 		LabelVO labelVO = new LabelVO();
-		labelVO.setKey("3");
+		labelVO.setKey(SnippetMappingFunction.turnIntToString22(3));
 		labelVO.setName("hadoop");
 		labelDAO.insert(labelVO);
 	}
@@ -126,7 +131,7 @@ public class LabelDAO {
 
 	public static void main(String[] args) {
 		// testScan();
-		// testInsert();
+		testInsert();
 		// testDelete();
 		testScan();
 	}

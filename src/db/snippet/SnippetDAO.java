@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tool.SnippetDBConn;
+import tool.SnippetMappingFunction;
 
 public class SnippetDAO {
 	private SnippetDBConn dbc = new SnippetDBConn();
@@ -19,6 +20,10 @@ public class SnippetDAO {
 	 * @return
 	 */
 	public int insert(SnippetVO snippetVO) {
+		if(snippetVO.getKey().length()!=22){
+			System.err.println("key's length is not 22");
+			return -1;
+		}
 		int toReturn = 0;
 		String sql = "INSERT INTO Snippet(key,name,sourceCode,dateAdded,dateModified,highlightKey) "
 				+ "VALUES (?,?,?,?,?,?)";
@@ -111,7 +116,7 @@ public class SnippetDAO {
 	public static void testInsert() {
 		SnippetDAO snippetDAO = new SnippetDAO();
 		SnippetVO snippetVO = new SnippetVO();
-		snippetVO.setKey("4");
+		snippetVO.setKey(SnippetMappingFunction.turnIntToString22(22));
 		snippetVO.setName("add to spark");
 		snippetVO.setSourceCode("add to spark");
 		snippetDAO.insert(snippetVO);
@@ -124,8 +129,8 @@ public class SnippetDAO {
 
 	public static void main(String[] args) {
 		// testScan();
-		// testInsert();
-		testDelete();
+		testInsert();
+		// testDelete();
 		testScan();
 	}
 }
