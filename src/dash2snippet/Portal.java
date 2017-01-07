@@ -30,6 +30,7 @@ public class Portal {
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
 
+		System.out.println("clean snippet db");
 		cleanSnippet();
 
 		// read from dash.snippet, 
@@ -45,6 +46,7 @@ public class Portal {
 			snippetVO.setSourceCode(dashSnippetsVO.getBody());
 			lSnippet.add(snippetVO);
 		}
+		System.out.println("insert "+lSnippet.size()+"snippets into snippet db batchly");
 		//insert into snippet.snippet batchly
 		snippetSnippetDAO.insertBatchly(lSnippet);
 		
